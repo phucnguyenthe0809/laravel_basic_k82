@@ -35,7 +35,7 @@ Route::group(['prefix' => 'product'], function () {
 });
 
 
-Route::get('login','Frontend\LoginController@getLogin'); 
+Route::get('login','Backend\LoginController@getLogin'); 
 
 // ---------------BACKEND
 Route::group(['prefix' => 'admin'], function () {
@@ -45,6 +45,9 @@ Route::group(['prefix' => 'admin'], function () {
     //category
     Route::group(['prefix' => 'category'], function () {
         Route::get('','Backend\CategoryController@getCategory');
+        Route::post('','Backend\CategoryController@postCategory');
+
+
         Route::get('edit','Backend\CategoryController@getEditCategory');
     });
 
