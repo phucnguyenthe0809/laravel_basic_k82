@@ -24,7 +24,8 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-5">
-
+							<form method="POST">
+								@csrf
 								<div class="form-group">
 									<label for="">Danh mục cha:</label>
 									<select class="form-control" name="" id="">
@@ -36,21 +37,14 @@
 										<option>---|Áo khoác nữ</option>
 									</select>
 								</div>
-
-								
-
 								<div class="form-group">
 									<label for="">Tên Danh mục</label>
 									<input type="text" class="form-control" name="name" id="" placeholder="Tên danh mục mới">
-
-									<div class="alert bg-danger" role="alert">
-										<svg class="glyph stroked cancel">
-											<use xlink:href="#stroked-cancel"></use>
-										</svg>Tên danh mục đã tồn tại!<a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-									</div>
+									{{ showError($errors,'name') }}
+									
 								</div>
 								<button type="submit" class="btn btn-primary">Thêm danh mục</button>
-
+							</form>
 
 
 							</div>

@@ -13,7 +13,7 @@ class AddCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class AddCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'required',
+           
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'name.required'=>'Tên danh mục không được để trống',
         ];
     }
 }
