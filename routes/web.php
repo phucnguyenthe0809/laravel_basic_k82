@@ -139,6 +139,101 @@ Route::group(['prefix' => 'query'], function () {
         //DB::table('users')->delete();
     });
 
+    //nâng cao
+    //lấy dữ liệu kết thúc bằng: get(),first()
+    //chú ý Phương thức get() dùng để lấy danh sách nhiều bản ghi, 
+    //first() lấy ra bản ghi đầu tiên
+
+    Route::get('get-all-data', function () {
+        //lấy toàn bộ dữ liệu
+        $users=DB::table('users')->get();
+        dd($users);
+    });
+    Route::get('get-first-data', function () {
+        //lấy bản ghi đầu tiên
+        $user=DB::table('users')->first();
+        dd($user);
+    });
+
+
+    //chọn trường hiển thị
+    Route::get('select', function () {
+        $user=DB::table('users')->select('id','full')->get();
+        dd($user);
+    });
+
+    //lấy dữ liệu theo điều kiện
+    Route::get('where', function () {
+        //where lồng nhau sẽ lich động hơn khi lấy dữ liệu
+        // $users=DB::table('users')->where('id','>',13)->where('id','<',16)->get();
+
+
+        // whereBetween('tên trường',[x,y]) lấy bản ghi có tên trường trong khoảng x đến y
+        $users=DB::table('users')->whereBetween('id',[14,16])->get();
+        dd($users);
+    });
+
+
+
+    Route::get('or-where', function () {
+        
+        $users=DB::table('users')->where('id','<',14)->orwhere('id','>',15)->get();
+        dd($users);
+    });
+
+    //sắp xếp
+    Route::get('orderby', function () {
+        $users=DB::table('users')->where('id','<',14)->orwhere('id','>',15)->orderBy('id','DESC')->get();
+        dd($users);
+    });
+
+
+    //giới hạn kết quả tìm kiếm
+
+    Route::get('limit', function () {
+        //skip đứng từ vị trí thứ 2  lấy 3  bản ghi
+        //nếu không có skip -> đứng từ 0
+        $users=DB::table('users')->skip(2)->take(3)->get();
+        dd($users);
+    });
+
+    //lấy giá trị trung bình
+    Route::get('avg', function () {
+        $tb=DB::table('users')->where('id','>',13)->avg('id');
+        dd($tb);
+    });
+
+     //lấy giá trị sum
+     Route::get('sum', function () {
+        $tb=DB::table('users')->where('id','>',13)->sum('id');
+        dd($tb);
+    });
+
+    //increment
+    Route::get('increment', function () {
+        DB::table('users')->where('id','>',13)->increment('level',1);
+
+    });
+
+
+    //decrement
+    Route::get('decrement', function () {
+        DB::table('users')->where('id','>',13)->decrement('level',1);
+
+    });
+
+    
+
+
+
+
+
+
+
+
+    
+
+
 
 });
 
