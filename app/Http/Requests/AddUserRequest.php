@@ -28,7 +28,6 @@ class AddUserRequest extends FormRequest
             'full'=>'required|min:5',
             'phone'=>'required',
             'address'=>'required|min:8',
-            'id_number'=>'required',
         ];
     }
     public function messages()
@@ -41,7 +40,6 @@ class AddUserRequest extends FormRequest
             'phone.required'=>'số điện thoại không được để trống',
             'address.required'=>'địa chỉ không được để trống',
             'address.min'=>'Địa chỉ không được nhỏ hơn 8 ký tự',
-            'id_number.min'=>'số CMT không được để trống',
         ];
     }
 }

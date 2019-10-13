@@ -237,6 +237,11 @@ Route::group(['prefix' => 'query'], function () {
 
 });
 
+//model
+Route::get('test-model', function () {
+    dd(App\User::find(13)->toarray());
+});
+
 // ---------------FRONTEND
 Route::get('','Frontend\HomeController@getIndex');
 Route::get('about','Frontend\HomeController@getAbout');
@@ -299,7 +304,9 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('','Backend\UserController@getListUser');
         Route::get('add','Backend\UserController@getAddUser');
         Route::post('add','Backend\UserController@postAddUser');
-        Route::get('edit','Backend\UserController@getEditUser');
+        Route::get('edit/{idUser}','Backend\UserController@getEditUser');
+        Route::post('edit/{idUser}','Backend\UserController@postEditUser');
+        Route::get('del/{idUser}','Backend\UserController@delUser');
     });
     
 });

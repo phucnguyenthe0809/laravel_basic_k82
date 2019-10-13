@@ -8,6 +8,21 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+   
+    //mặc định liên kết đến bảng users
+    // protected $table="thanh_vien";(liên kết đến bảng xác định)
+
+    //mặc định Khoá chính là id
+    //protected $primaryKey = 'Tên khoá chính trong bảng'; 
+    // protected $primaryKey = 'id_user';
+
+    //mặc định timestamps:true; (có 2 trường created_at,update_at)
+    // nếu không dùng 2 trường created_at,updated_at 
+    public $timestamps=false;
+
+
+    // mặc định khoá chính là khoá tự tăng (AI)
+    // public $incrementing = false; (khoá chính không phải khoá tự tăng)
     use Notifiable;
 
     /**
