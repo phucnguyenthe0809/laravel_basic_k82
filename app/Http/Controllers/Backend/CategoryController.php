@@ -22,8 +22,18 @@ class CategoryController extends Controller
         return view('backend.category.editcategory',$data);
     }
 
+    function postEditCategory($idCate,request $r)
+    {
+        $cate=Category::findOrFail($idCate);
+        $cate->name=$r->name;
+        $cate->slug= Str::slug($r->name, '-');
+        $cate->parent=$r->parent;
+        $cate->save();
+        return redirect()->back()->with('thongbao','Đã sửa thành công!');
+    }
+
     function postCategory(AddCategoryRequest $r){
-    //    phiên bản <5.8;
+    //    phiên bản <=5.8;
         // str_slug($r->name);
     //  phiên bản >= 6.0
     $cate=new Category;

@@ -270,14 +270,13 @@ Route::get('login','Backend\LoginController@getLogin');
 
 // ---------------BACKEND
 Route::group(['prefix' => 'admin'], function () {
-
     Route::get('','Backend\IndexController@getIndex'); 
-
     //category
     Route::group(['prefix' => 'category'], function () {
         Route::get('','Backend\CategoryController@getCategory');
         Route::post('','Backend\CategoryController@postCategory');
         Route::get('edit/{idCate}','Backend\CategoryController@getEditCategory');
+        Route::post('edit/{idCate}','Backend\CategoryController@postEditCategory');
         Route::get('delete/{idCate}','Backend\CategoryController@delCategory');
     });
 
