@@ -222,17 +222,39 @@ Route::group(['prefix' => 'query'], function () {
 
     });
 
-    
+
+
+});
+
+
+Route::group(['prefix' => 'lien-ket'], function () {
+
+    //chú ý:
+    //bảng chính : là bảng chứa khoá chính
+    //bảng phụ : là bảng chứ khoá ngoại
+
+
+    //liên kết 1-1 theo chiều thuận (liên kết từ bảng chính tới bảng phụ)
+    Route::get('lk1-1-t', function () {
+        $data['user']=App\User::find(13);
+        return view('lien-ket',$data);
+    });
+
+    //liên kết 1-1 theo chiều nghịch (liên kết từ bảng phụ tới bảng chính)
+    Route::get('lk1-1-n', function () {
+        $data['info']=App\Models\info::find(2);
+        return view('lien-ket',$data);
+    });
+
+    //liên kết 1-n 
+    Route::get('lk1-n', function () {
+        $data['cate']=App\Models\Category::find(6);
+        return view('lien-ket',$data);
+    });
 
 
 
-
-
-
-
-
-    
-
+    //liên kết n-n
 
 
 });
@@ -308,5 +330,3 @@ Route::group(['prefix' => 'admin'], function () {
     });
     
 });
-
-
