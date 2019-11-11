@@ -21,7 +21,7 @@ function getCategory($mang,$parent,$tab,$idSelect)
             else {
                 echo '<option value="'.$value['id'].'">'.$tab.$value['name'].'</option>';
             }
-    
+
          getCategory($mang,$value['id'],$tab.'--|',$idSelect);
         }
     }
@@ -41,6 +41,18 @@ function showCategory($mang,$parent,$tab)
         </div>
          ';
          showCategory($mang,$value['id'],$tab.'--|');
+        }
+    }
+}
+
+function getLvl($danhMuc,$idCha,$cap){
+    foreach ($danhMuc as $value) {
+       if ($value['id']==$idCha) {
+           $cap++;
+           if ($value['parent']==0) {
+               return $cap;
+           }
+           return getLvl($danhMuc,$value['parent'],$cap);
         }
     }
 }

@@ -11,10 +11,10 @@ class CategoryController extends Controller
     function getCategory()
     {
         $data['categories']=Category::all()->toArray();
-        
+
         return view('backend.category.category',$data);
     }
-    
+
     function getEditCategory($idCate)
     {
         $data['cate']=Category::findOrFail($idCate);
@@ -33,16 +33,23 @@ class CategoryController extends Controller
     }
 
     function postCategory(AddCategoryRequest $r){
-    //    phiên bản <=5.8;
+ //    phiên bản <=5.8;
         // str_slug($r->name);
     //  phiên bản >= 6.0
-    $cate=new Category;
-    $cate->name=$r->name;
-    $cate->slug= Str::slug($r->name, '-');
-    $cate->parent=$r->parent;
-    $cate->save();
-    return redirect()->back();
-  
+    $categories=Category::all()->toarray();
+        if (getLvl($categories,$r->parent,1)<3) {
+            $cate=new Category;
+            $cate->name=$r->name;
+            $cate->slug= tr::slug($r->name, '-');
+            $cate->parent=$r->parent;
+            $cate->save();
+            return redirect()->back();
+        }else {
+            return redirect()->back()->withErros('name','Không hộ trợ danh mục cấp 3 trở lên');
+        }
+
+
+
     }
 
     function delCategory($idCate)

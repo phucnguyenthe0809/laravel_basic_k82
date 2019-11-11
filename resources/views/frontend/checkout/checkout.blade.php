@@ -26,9 +26,9 @@
 	<form method="post" class="colorlib-form" >
 		@csrf
         <div class="row">
-		
+
             <div class="col-md-7">
-                
+
                     <h2>Chi tiết thanh toán</h2>
                     <div class="row">
                         <div class="col-md-6">
@@ -74,12 +74,15 @@
                         <li>
 
                             <ul>
-                                <li><span>1 x Tên sản phẩm</span> <span>₫ 990.000</span></li>
-                                <li><span>1 x Tên sản phẩm</span> <span>₫ 780.000</span></li>
+                                @foreach ($prd as $row)
+                            <li><span>{{$row->qty}}  x {{$row->name}}</span> <span>₫ {{$row->price*$row->qty}}</span></li>
+                                @endforeach
+
+
                             </ul>
                         </li>
 
-                        <li><span>Tổng tiền đơn hàng</span> <span>₫ 1.370.000</span></li>
+                        <li><span>Tổng tiền đơn hàng</span> <span>₫ {{$total}}</span></li>
                     </ul>
                 </div>
 
@@ -89,7 +92,7 @@
                     </div>
                 </div>
             </div>
-           
+
 		</div>
 	</form>
     </div>

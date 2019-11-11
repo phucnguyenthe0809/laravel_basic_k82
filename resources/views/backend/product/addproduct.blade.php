@@ -16,7 +16,7 @@
                 <div class="panel-body">
                     <form method="POST" enctype="multipart/form-data">
                       @csrf
-                    <div class="row" style="margin-bottom:40px"> 
+                    <div class="row" style="margin-bottom:40px">
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label>Danh mục</label>

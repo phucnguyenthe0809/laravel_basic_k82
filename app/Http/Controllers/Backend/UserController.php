@@ -25,7 +25,7 @@ class UserController extends Controller
     }
     function postAddUser(AddUserRequest $r)
     {
-        
+
         $user=new User;
         $user->email=$r->email;
         $user->full=$r->full;

@@ -51,7 +51,7 @@
 									</thead>
 									<tbody>
 									@foreach ($users as $row)
-										
+
 										<tr>
 											<td>{{ $row->id }}</td>
 											<td>{{ $row->email }}</td>
@@ -63,15 +63,15 @@
 											@else
 												<td>User</td>
 											@endif
-                                           
+
 											<td>
 												<a href="/admin/user/edit/{{ $row->id }}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</a>
 												<a href="/admin/user/del/{{ $row->id }}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</a>
 											</td>
                                         </tr>
 									@endforeach
-                                        
-								
+
+
 									</tbody>
 								</table>
 								<div align='right'>

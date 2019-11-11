@@ -16,17 +16,17 @@
 Route::group(['prefix' => 'schema'], function () {
     // tạo bảng
     Route::get('create-order-and-product-order', function () {
-        
+
 
         //tạo bảng order schema
         Schema::create('order', function ($table) {
 
-            
+
             $table->bigIncrements('id');
-            $table->string('full'); 
+            $table->string('full');
             $table->string('address')->nullable();  //cho phép để trống cột address
-            $table->string('email'); 
-            $table->string('phone'); 
+            $table->string('email');
+            $table->string('phone');
             $table->decimal('total',18);
 
             $table->tinyInteger('state')->unsigned(); // state Kiểu tinyInt  Dạng không dấu
@@ -42,7 +42,7 @@ Route::group(['prefix' => 'schema'], function () {
             $table->string('name');
             $table->decimal('price',18);
             $table->tinyInteger('qty');
-            $table->string('img'); 
+            $table->string('img');
 
             //tạo khoá ngoại
             $table->bigInteger('order_id')->unsigned();
@@ -66,7 +66,7 @@ Route::group(['prefix' => 'schema'], function () {
     // tác động vào cột trong bảng
 
     Route::get('del-col', function () {
-        
+
         Schema::table('orders', function ( $table) {
             $table->dropColumn('updated_at');
         });
@@ -90,7 +90,7 @@ Route::group(['prefix' => 'schema'], function () {
 
 
 
-    
+
 });
 
 //query buider
@@ -106,7 +106,7 @@ Route::group(['prefix' => 'query'], function () {
                                     'phone'=>'0213213445',
                                     'level'=>1
                                     ]);
-                                   
+
         //tạo nhiều bản ghi cùng lúc
         DB::table('users')->insert([
         ['email'=>'A@gmail.com','full'=>'Thế A','password'=>'123456','address'=>'thường A','phone'=>'02113445','level'=>1],
@@ -115,7 +115,7 @@ Route::group(['prefix' => 'query'], function () {
         ]
         );
         });
-     
+
     //sửa dữ liệu trong bảng
     Route::get('update', function () {
         // where: lọc ra những bản ghi cần sửa
@@ -127,8 +127,8 @@ Route::group(['prefix' => 'query'], function () {
                                                     'phone'=>'0213213445',
                                                     'level'=>1
                                                     ]);
-        
-        
+
+
     });
 
     //xoá bảng
@@ -141,7 +141,7 @@ Route::group(['prefix' => 'query'], function () {
 
     //nâng cao
     //lấy dữ liệu kết thúc bằng: get(),first()
-    //chú ý Phương thức get() dùng để lấy danh sách nhiều bản ghi, 
+    //chú ý Phương thức get() dùng để lấy danh sách nhiều bản ghi,
     //first() lấy ra bản ghi đầu tiên
 
     Route::get('get-all-data', function () {
@@ -176,7 +176,7 @@ Route::group(['prefix' => 'query'], function () {
 
 
     Route::get('or-where', function () {
-        
+
         $users=DB::table('users')->where('id','<',14)->orwhere('id','>',15)->get();
         dd($users);
     });
@@ -246,7 +246,7 @@ Route::group(['prefix' => 'lien-ket'], function () {
         return view('lien-ket',$data);
     });
 
-    //liên kết 1-n 
+    //liên kết 1-n
     Route::get('lk1-n', function () {
         $data['cate']=App\Models\Category::find(6);
         return view('lien-ket',$data);
@@ -264,6 +264,10 @@ Route::get('test-model', function () {
     dd(App\User::find(13)->toarray());
 });
 
+
+
+
+
 // ---------------FRONTEND
 Route::get('','Frontend\HomeController@getIndex');
 Route::get('about','Frontend\HomeController@getAbout');
@@ -272,6 +276,8 @@ Route::get('contact','Frontend\HomeController@getContact');
 //cart
 Route::group(['prefix' => 'cart'], function () {
     Route::get('','Frontend\CartController@getCart');
+    Route::post('add','Frontend\CartController@addCart');
+    Route::get('update/{rowId}/{qty}','Frontend\CartController@updateCart');
 });
 
 //checkout
@@ -284,17 +290,24 @@ Route::group(['prefix' => 'checkout'], function () {
 //product
 Route::group(['prefix' => 'product'], function () {
     Route::get('shop','Frontend\ProductController@getShop');
-    Route::get('detail','Frontend\ProductController@getDetail');
+    Route::get('detail/{slug_prd}','Frontend\ProductController@getDetail');
+    Route::get('shop/{id_cate}','Frontend\ProductController@getCatePrd');
+
 });
 
 
-Route::get('login','Backend\LoginController@getLogin')->middleware('checkLogout'); 
-Route::post('login','Backend\LoginController@postLogin'); 
+
+
+
+
+
+Route::get('login','Backend\LoginController@getLogin')->middleware('checkLogout');
+Route::post('login','Backend\LoginController@postLogin');
 
 // ---------------BACKEND
 Route::group(['prefix' => 'admin','middleware'=>'checkLogin'], function () {
-    Route::get('','Backend\IndexController@getIndex'); 
-    Route::get('logout','Backend\IndexController@logout'); 
+    Route::get('','Backend\IndexController@getIndex');
+    Route::get('logout','Backend\IndexController@logout');
     //category
     Route::group(['prefix' => 'category'], function () {
         Route::get('','Backend\CategoryController@getCategory');
@@ -331,5 +344,5 @@ Route::group(['prefix' => 'admin','middleware'=>'checkLogin'], function () {
         Route::post('edit/{idUser}','Backend\UserController@postEditUser');
         Route::get('del/{idUser}','Backend\UserController@delUser');
     });
-    
+
 });
